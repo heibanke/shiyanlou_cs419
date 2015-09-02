@@ -3,15 +3,15 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.models import User  
-from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login ,logout as auth_logout
+from django.core.urlresolvers import reverse
 
 #myApp package
 from accounts.forms import  RegisterForm
 
+@login_required
 def index(request):
-    username = "heibanke"
     return render(request,"accounts/index.html")
 
 
@@ -27,13 +27,9 @@ def register(request):
             password=form.cleaned_data["password"]
             user=User.objects.create_user(username,email,password)
             user.save()
-
             if _login(request,username,password,template_var):
                 return HttpResponseRedirect("/accounts/index")
-        else:
-            aa= form.errors
-            print form.non_field_errors
-            print aa.viewitems()
+
     template_var["form"]=form 
              
     return render(request,"accounts/register.html",template_var)
@@ -45,7 +41,6 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get("username")
         password = request.POST.get("password")
-
         if _login(request,username,password,template_var):
             try:
                 tmp = request.GET['next']
