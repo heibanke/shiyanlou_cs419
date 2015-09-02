@@ -1,12 +1,33 @@
+{% load static from staticfiles %}
+
 <!DOCTYPE html>
 <html lang="zh-CN" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 
     <head>
         <title>{% block title %} 爱记账 {% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css'%}">
+        <!--[if lt IE 9]><script src="{% static 'libs/bootstrap/js/ie8-responsive-file-warning.js'%}"></script><![endif]-->
+
+
+        <!--[if lt IE 9]>
+          <script src="{% static 'libs/bootstrap/js/html5shiv.js'%}"></script>
+          <script src="{% static 'libs/bootstrap/js/respond.min.js'%}"></script>
+        <![endif]-->
+        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js'%}"></script>
+
     </head>
     <body>
-        {%block content%} {%endblock%}
-        {% include "footer.html" %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-1 col-md-2 col-lg-3"></div>
+                    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+                    {%block content%} {%endblock%}
+                    {% include "footer.html" %}
+                    </div>
+                <div class="col-sm-1 col-md-2 col-lg-3"></div>
+            </div>
+        </div>
     </body>
 </html>

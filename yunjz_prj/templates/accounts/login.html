@@ -1,7 +1,7 @@
 {% extends "base_yunjz.html" %}
 {%block title%}登录{%endblock%}s
 {% block content %}
-        <h2> 欢迎来到黑板客记账站点 </h2>
+        <h2 class="text-center"> 欢迎来到黑板客记账站点 </h2>
         {%if error%}
 	    <p>{{error}}</p>
         {%endif%}
@@ -11,16 +11,16 @@
 
             <div class="form-group">
                 <label>昵称:</label> 
-                <input id="id_username" name="username" type="text" value="{{username}}"/>
+                <input class="form-control" id="id_username" name="username" type="text" value="{{username}}"/>
             </div>
             
-            <div>
+            <div class="form-group">
                 <label>密码:</label> 
-                <input id="id_password" name="password" type="password" />
+                <input class="form-control" id="id_password" name="password" type="password" />
             </div>
 
-        <button id='id_submit' type="submit">登录</button>
-        <button id='id_register' type='button' onclick='javascrtpt:window.location.href="{% url 'accounts:register' %}"'>注册</button>
+        <button id='id_submit' type="submit" class="btn btn-default">登录</button>
+        <button id='id_register' type='button' class="btn btn-default" onclick='javascrtpt:window.location.href="{% url 'accounts:register' %}"'>注册</button>
         </form>
         
         <h3> 在这里你可以</h3>
@@ -30,5 +30,4 @@
             <li>导出表格进行备份</li>
             <li>导入以前记录的表格</li>
         </ul>
-  
 {%endblock%}
