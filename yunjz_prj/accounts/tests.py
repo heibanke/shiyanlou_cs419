@@ -34,7 +34,7 @@ class LoginPageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         
     def test_assertTrue(self):
-        self.assertTrue("")
+        self.assertTrue("123")
         
     def test_assertFalse(self):
         self.assertFalse("")
