@@ -1,0 +1,46 @@
+{% extends "base_yunjz.html" %}
+{%block title%}新建/编辑收支{%endblock%}
+
+
+{% block content %}
+
+{% include "welcome.html" %}
+
+<form method="post" action=""  role="form" >
+{% csrf_token %}
+
+{% if form.non_fields_error %}
+<ul class="errorlist"><li>{{form.non_fields_error}}</li>
+{% endif %}
+
+
+
+{% for field in form %}
+
+    {% if field.field.widget.attrs.checkbox %}
+        <div class="checkbox">
+        {{ field.errors }}
+        
+        {{ field }}{{ field.label }} 
+        </div>
+
+    {% else %}
+        <div class="form-group">
+        {{ field.errors }}
+        {{ field.label_tag }} 
+        {{ field }}
+        </div>
+    {% endif %}
+
+{% endfor %}
+
+
+<p></p>
+<p></p>
+<button type="submit" class="btn btn-primary" name="return_list"><span class="glyphicon glyphicon-ok"></span> 提交</button>
+<a type='button'  href="{% url 'jizhang:items'%}" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> 返回</a>
+
+</form>
+
+
+{%endblock%}

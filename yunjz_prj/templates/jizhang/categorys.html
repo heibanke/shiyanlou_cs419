@@ -1,0 +1,49 @@
+{% extends "base_yunjz.html" %}
+{%block title%}分类列表{%endblock%}
+
+        
+{% block content %}
+
+{% include "welcome.html" %}
+
+        <div class="btn-group btn-group-justified" role="group">
+            <a href="{% url 'jizhang:new_category' %}"            class="btn btn-primary" role="button"><span class="glyphicon glyphicon-plus"></span> 新建</a>
+            <a href="#" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-floppy-save"></span> 导出</a>
+            <a href="#"    class="btn btn-primary" role="button"><span class="glyphicon glyphicon-floppy-open"></span> 导入</a>
+            <a data-toggle="modal" href="#" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-trash"></span> 删除</a>
+
+        </div>
+
+        <form method="post" action="">
+            {% csrf_token %}
+
+
+            <table class="table table-striped">
+
+                <tr class="info"><td><strong>分类名称</strong></td>
+                    <td><strong>父类名称</strong></td>
+                    <td><strong>收入/支出</strong></td>
+                    <td><strong><input type="checkbox" id="all" />全选</strong></td>
+                </tr>
+
+                {% if categorys %}
+                    {% for obj in categorys %}
+                    <tr class="{% cycle ,active %}">
+                        <td data-toggle="tooltip" data-placement="left" title="编辑该分类"><a href="{% url 'jizhang:category' obj.category.id %}" >{{obj.level}}{{ obj.category.name}}</a></td>
+                        <td>{{ obj.category.p_category}}</td>
+                        <td> {{ obj.category.get_isIncome_display}} </td>
+                        <td><input type='checkbox' name="del_id" value="{{obj.category.id}}"></td>
+
+                    </tr>
+                    
+                    {% endfor %}
+                {% else %}
+                    <p>没有可用的分类</p>
+                {% endif %}
+
+            </table>
+        </form>
+
+        {% include "jizhang/footer_button.html" %}
+
+{%endblock%}
