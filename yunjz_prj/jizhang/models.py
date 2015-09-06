@@ -24,8 +24,23 @@ class Category(models.Model):
     def get_items_url(self):
         return '%s' % (reverse('jizhang:show_category', args=(self.id,))) 
     
+    #shiyan7
+    def level(self):
+        if self.p_category:
+            return "----"+self.p_category.level()
+        else:
+            return ""
     
-       
+    #shiyan7
+    def save(self, *args, **kwargs):
+        #form保证了子类不能修改isIncome，只能修改顶级父类的isIncome
+        #遍历一遍childs，统一设置isIncome
+        for child in self.childs.all():
+            if child.isIncome != self.isIncome:
+                child.isIncome = self.isIncome
+                child.save()
+                
+        super(self.__class__, self).save(*args, **kwargs)        
 
 class Item(models.Model):
     price = models.DecimalField(max_digits=20, decimal_places=2, verbose_name=u'金额')
@@ -38,3 +53,14 @@ class Item(models.Model):
 
     def get_absolute_url(self):
         return '%s' % (reverse('jizhang:edit_item', args=(self.id,))) 
+    
+    def get_price(self):
+        if self.category.isIncome:
+            return self.price
+        else:
+            return -1*self.price
+
+    def save(self, *args, **kwargs):
+        if self.price<0:
+            self.price = -1*self.price
+        super(self.__class__, self).save(*args, **kwargs)
