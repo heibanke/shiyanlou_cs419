@@ -14,8 +14,8 @@ urlpatterns = patterns('',
     url(r'^new/$',views.new_item,name='new_item'),
 
     #categorys
-    url(r'^categorys/$', views.categorys, name='categorys'),
-    url(r'^categorys/(?P<pk>\d+)/$', views.show_category, name='show_category'),    
-    url(r'^categorys/(?P<pk>\d+)/edit/$', views.edit_category, name='edit_category'),
-    url(r'^categorys/new/$',views.new_category,name='new_category'),   
+    url(r'^categories/$', views.categories, name='categories'),
+    url(r'^categories/(?P<pk>\d+)/$', views.show_category, name='show_category'),    
+    url(r'^categories/(?P<pk>\d+)/edit/$', views.edit_category, name='edit_category'),
+    url(r'^categories/new/$',views.new_category,name='new_category'),   
 )

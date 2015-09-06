@@ -22,12 +22,8 @@ def register(request):
     if request.method=="POST":
         form=RegisterForm(request.POST.copy())
         if form.is_valid():
-            username=form.cleaned_data["username"]
-            email=form.cleaned_data["email"]
-            password=form.cleaned_data["password"]
-            user=User.objects.create_user(username,email,password)
-            user.save()
-            if _login(request,username,password,template_var):
+            form.save()
+            if _login(request,form.cleaned_data['username'],form.cleaned_data['password'],template_var):
                 return HttpResponseRedirect("/accounts/index")
 
     template_var["form"]=form 
@@ -63,7 +59,7 @@ def _login(request,username,password,dict_var):
         else:
             dict_var["error"] = u'用户'+username+u'没有激活'
     else:
-        dict_var["error"] = u'用户'+username+u'不存在'  
+        dict_var["error"] = u'用户'+username+u'不存在或密码错误'  
     return ret
 
 

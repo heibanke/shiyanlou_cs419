@@ -26,12 +26,12 @@
                     <td><strong><input type="checkbox" id="all" />全选</strong></td>
                 </tr>
 
-                {% if categorys %}
-                    {% for obj in categorys %}
+                {% if categories %}
+                    {% for obj in categories %}
                     <tr class="{% cycle ,active %}">
-                        <td data-toggle="tooltip" data-placement="left" title="编辑该分类"><a href="{% url 'jizhang:category' obj.category.id %}" >{{obj.level}}{{ obj.category.name}}</a></td>
-                        <td>{{ obj.category.p_category}}</td>
-                        <td> {{ obj.category.get_isIncome_display}} </td>
+                        <td data-toggle="tooltip" data-placement="left" title="编辑该分类"><a href="{% url 'jizhang:edit_category' obj.id %}" >{{obj.level}}{{ obj.name}}</a></td>
+                        <td>{{ obj.p_category}}</td>
+                        <td> {{ obj.get_isIncome_display}} </td>
                         <td><input type='checkbox' name="del_id" value="{{obj.category.id}}"></td>
 
                     </tr>

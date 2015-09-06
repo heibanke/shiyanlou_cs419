@@ -16,14 +16,16 @@ class Category(models.Model):
     user = models.ForeignKey(User,verbose_name=u'所属用户')
 
     def __str__(self):
-        return self.name
+        return self.level()+self.name
 
     def get_absolute_url(self):
-        return '%s' % (reverse('jizhang:edit_category', args=[self.id])) 
+        return '%s' % (reverse('jizhang:edit_category', args=(self.id,))) 
 
     def get_items_url(self):
-        return '%s' % (reverse('jizhang:show_category', args=[self.id])) 
-
+        return '%s' % (reverse('jizhang:show_category', args=(self.id,))) 
+    
+    
+       
 
 class Item(models.Model):
     price = models.DecimalField(max_digits=20, decimal_places=2, verbose_name=u'金额')
@@ -35,13 +37,4 @@ class Item(models.Model):
         return str(self.price)
 
     def get_absolute_url(self):
-        return '%s' % (reverse('jizhang:edit_item', args=[self.id])) 
-
-    def save(self):
-        if self.category.isIncome:
-            if self.price<0:
-                self.price = -1*self.price
-        else:
-            if self.price>0:
-                self.price = -1*self.price
-        super(Item, self).save()
+        return '%s' % (reverse('jizhang:edit_item', args=(self.id,))) 

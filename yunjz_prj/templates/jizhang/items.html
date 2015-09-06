@@ -30,9 +30,9 @@
                 {% if items %}
                     {% for item in items %}
                     <tr class="{% cycle ,active %}">
-                        <td data-toggle="tooltip" data-placement="left" title="编辑该帐单"><a href="{% url 'jizhang:item' item.id %}">{{ item.pub_date|date:"Y-m-d"}}</a></td>
-                        <td data-toggle="tooltip" data-placement="left" title="编辑该帐单"><a href="{% url 'jizhang:item' item.id %}">{{ item.price}}</a></td>
-                        <td data-toggle="tooltip" data-placement="left" title="显示该分类下帐单"><a href="{{item.category.get_absolute_url}}"> {{ item.category}}</a> </td>
+                        <td data-toggle="tooltip" data-placement="left" title="编辑该帐单"><a href="{{item.get_absolute_url}}">{{ item.pub_date|date:"Y-m-d"}}</a></td>
+                        <td data-toggle="tooltip" data-placement="left" title="编辑该帐单"><a href="{{item.get_absolute_url}}">{{ item.get_price}}</a></td>
+                        <td data-toggle="tooltip" data-placement="left" title="显示该分类下帐单"><a href="{{item.category.get_items_url}}"> {{ item.category}}</a> </td>
                         <td> {{ item.comment}} </td>
                         <td><input type='checkbox' name="del_id" value="{{item.id}}"></td>
                     </tr>

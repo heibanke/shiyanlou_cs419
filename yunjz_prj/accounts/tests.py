@@ -58,7 +58,7 @@ class LoginPageTestCase(TestCase):
         # POST request
         response = self.client.post(reverse('accounts:login'),{'username': self.fail_username, 'password': PASSWORD})
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['error'], u'用户'+self.fail_username+u'不存在')
+        self.assertEqual(response.context['error'], u'用户'+self.fail_username+u'不存在或密码错误')
         
 class IndexPageTestCase(TestCase):
     def setUp(self):
@@ -109,4 +109,5 @@ class RegisterPageTestCase(TestCase):
     def test_correct(self):
         response = self.client.post(reverse('accounts:register'),self.correct_data)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response,reverse('accounts:index'))        
+        self.assertRedirects(response,reverse('accounts:index')) 
+        self.assertEqual(len(User.objects.all()),1)       

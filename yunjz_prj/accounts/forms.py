@@ -57,6 +57,9 @@ class RegisterForm(forms.Form):
 
         return cleaned_data
 
-
-
-	
+    def save(self):
+        username=self.cleaned_data["username"]
+        email=self.cleaned_data["email"]
+        password=self.cleaned_data["password"]
+        user=User.objects.create_user(username,email,password)
+        return user
